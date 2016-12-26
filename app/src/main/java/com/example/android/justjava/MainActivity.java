@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -34,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int price = calculatePrice();
+
+
+        EditText orderName = (EditText) findViewById(R.id.name_field);
+        String name = orderName.getText().toString();
 
         CheckBox whippedCreamCheckbox = (CheckBox) findViewById(R.id.whipped_cream_checkbox);
         boolean hasWhippedCream = whippedCreamCheckbox.isChecked();
@@ -42,24 +46,55 @@ public class MainActivity extends AppCompatActivity {
         CheckBox chocolateCheckbox = (CheckBox) findViewById(R.id.chocolate_checkbox);
         boolean hasChocolate = chocolateCheckbox.isChecked();
         // Log.v("MainActivity","Has whipped cream: " + hasWhippedCream);
-        String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate);
+
+        int price = calculatePrice(hasWhippedCream, hasChocolate);
+
+        String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate, name);
         displayMessage(priceMessage);
     }
     /**
      * Calculates the price of the order.
      * @return total price
+     * @param name who's order
      * @param price of the order
      * @param quantity is the number of cups of coffee ordered
      * @param addWhippedCream is whether or not the user wants whipped cream topping
      */
-    private int calculatePrice() {
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate) {
 
-        return quantity * 5;
+        int basePrice = 5;
+
+        if (addWhippedCream) {
+            basePrice += 1;
+        }
+
+        if (addChocolate) {
+            basePrice += 2;
+        }
+
+        return quantity * basePrice;
     }
 
-    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate ){
+        /* Code below were what I wrote before watching the video
+        Although it works well, however it's too long and unnecessary.
+        ==>only when checkbox checked, the if statement will check the condition
 
-        String priceMessage = "Name: Ginne Chou";
+        int basePricePerCup = 5;
+        int addOne = 1;
+        int addTwo = 2;
+            if (addWhippedCream == true && addChocolate == false) {
+                return quantity * (addOne + basePricePerCup);
+            }else if (addChocolate == true && addWhippedCream == false) {
+                return quantity * (addTwo + basePricePerCup);
+            }else if (addWhippedCream == true && addChocolate == true){
+                return quantity * (addOne + addTwo + basePricePerCup);
+            }else return quantity * 5;
+
+           }
+          */
+    private String createOrderSummary(int price, boolean addWhippedCream, boolean addChocolate, String name ){
+
+        String priceMessage = "Name: " + name;
         priceMessage += "\nAdd Whipped Cream? " + addWhippedCream;
         priceMessage += "\nAdd Chocolate? " + addChocolate;
         priceMessage += "\nQuantity:  " + quantity;
