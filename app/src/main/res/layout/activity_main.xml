@@ -14,7 +14,7 @@
             >
 
             <EditText
-                android:id="@+id/album_description_view"
+                android:id="@+id/name_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Name"
@@ -102,7 +102,7 @@
                 android:layout_margin="12dp"
                 android:textSize="16sp"
                 android:textColor="@android:color/black"
-                android:text="Total $0"
+
                 />
             <Button
                 android:text="Order"
