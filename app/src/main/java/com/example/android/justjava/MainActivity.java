@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
      * make global variable so the quantity won't be forget
      */
 
-    int quantity = 0;
+    int quantity = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         int price = calculatePrice(hasWhippedCream, hasChocolate);
 
         String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate, name);
-        //displayMessage(priceMessage);
+        displayMessage(priceMessage);
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:cocacolabear.la@gmail.com")); // only email apps should handle this
